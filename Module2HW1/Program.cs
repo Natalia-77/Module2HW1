@@ -2,11 +2,11 @@
 
 namespace Module2HW1
 {
-    internal class Program
+    public class Program
     {
-        private static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            Starter starter = new ();
+            var starter = new Starter();
             starter.Run();
         }
     }

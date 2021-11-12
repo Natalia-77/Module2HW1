@@ -1,29 +1,23 @@
 ﻿namespace Module2HW1
 {
-    internal class Actions
+    public class Actions
     {
+        private Logger _logger = Logger.Instance;
         public Result InfoMethod()
         {
-            Result result = new ();
-            result.Status = true;
-            Logger.Instance.Info("Start method: InfoMethod()");
-            return result;
+            _logger.Info($"Start method: {nameof(Actions.InfoMethod)}");
+            return new Result { Status = true };
         }
 
         public Result ErrorMethod()
         {
-            Result result = new ();
-            result.Status = false;
-            result.ResultMessage = "I broke a logic";
-            return result;
+            return new Result { Message = "I broke a logic" };
         }
 
         public Result WarningMethod()
         {
-            Result result = new ();
-            result.Status = true;
-            Logger.Instance.Warning("Skipped logic in method: WarningMethod()");
-            return result;
+            _logger.Warning($"Skipped logic in method: {nameof(Actions.WarningMethod)}");
+            return new Result { Status = true };
         }
     }
 }

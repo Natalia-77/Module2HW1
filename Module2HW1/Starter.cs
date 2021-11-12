@@ -1,30 +1,39 @@
 ﻿using System;
+using System.IO;
 
 namespace Module2HW1
 {
-    internal class Starter
+    public class Starter
     {
-        private readonly Actions _actions = new ();
         public void Run()
         {
-            Random rand = new ();
-            for (int i = 0; i <= 100; i++)
+            var actions = new Actions();
+            var rand = new Random();
+            var result = new Result();
+            var logger = Logger.Instance;
+            for (var i = 0; i <= 100; i++)
             {
-                int a = rand.Next(1, 4);
+                var a = rand.Next(1, 4);
                 switch (a)
                 {
                     case 1:
-                        _actions.InfoMethod();
+                        result = actions.InfoMethod();
                         break;
                     case 2:
-                        _actions.WarningMethod();
+                        result = actions.WarningMethod();
                         break;
                     case 3:
-                        _actions.ErrorMethod();
-                        Logger.Instance.Error($"Action failed by a reason: {_actions.ErrorMethod().ResultMessage}");
+                        result = actions.ErrorMethod();
                         break;
                 }
+
+                if (!result.Status)
+                {
+                    logger.Error($"Action failed by a reason: {result.Message}");
+                }
             }
+
+            File.WriteAllText("log.txt", logger.GetLogger());
         }
     }
 }
